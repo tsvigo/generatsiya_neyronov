@@ -15,9 +15,9 @@
 #include <vector>
 
 // Функция для генерации случайных чисел
-std::vector<unsigned long long> generateRandomNumbers(size_t count)
+std::vector<long long> generateRandomNumbers(size_t count)
 {
-    std::vector<unsigned long long> numbers;
+    std::vector<long long> numbers;
     numbers.reserve(count);
 
     for (size_t i = 0; i < count; ++i) {
@@ -28,7 +28,7 @@ std::vector<unsigned long long> generateRandomNumbers(size_t count)
 }
 
 // Функция для записи чисел в файл в двоичном виде
-bool writeNumbersToFile(const std::vector<unsigned long long> &numbers, const QString &fileName)
+bool writeNumbersToFile(const std::vector<long long> &numbers, const QString &fileName)
 {
     QFile file(fileName);
     if (!file.open(QIODevice::WriteOnly)) {
@@ -45,9 +45,9 @@ bool writeNumbersToFile(const std::vector<unsigned long long> &numbers, const QS
 }
 
 // Функция для чтения чисел из файла в двоичном виде
-std::vector<unsigned long long> readNumbersFromFile(const QString &fileName)
+std::vector<long long> readNumbersFromFile(const QString &fileName)
 {
-    std::vector<unsigned long long> numbers;
+    std::vector<long long> numbers;
 
     QFile file(fileName);
     if (!file.open(QIODevice::ReadOnly)) {
@@ -55,7 +55,7 @@ std::vector<unsigned long long> readNumbersFromFile(const QString &fileName)
     }
 
     QDataStream in(&file);
-    unsigned long long number;
+    long long number;
     while (!in.atEnd()) {
         in >> number;
         numbers.push_back(number);
@@ -75,7 +75,7 @@ int main(int argc, char *argv[])
         = "/home/viktor/my_projects_qt_2/generatsiya_neyronov/random_numbers.bin";
 
     // Генерация случайных чисел
-    std::vector<unsigned long long> generatedNumbers = generateRandomNumbers(numberCount);
+    std::vector<long long> generatedNumbers = generateRandomNumbers(numberCount);
 
     // Запись чисел в файл
     if (!writeNumbersToFile(generatedNumbers, fileName)) {
@@ -84,7 +84,7 @@ int main(int argc, char *argv[])
     }
 
     // Чтение чисел из файла
-    std::vector<unsigned long long> readNumbers = readNumbersFromFile(fileName);
+    std::vector<long long> readNumbers = readNumbersFromFile(fileName);
 
     // Проверка правильности записи
     if (generatedNumbers == readNumbers) {
